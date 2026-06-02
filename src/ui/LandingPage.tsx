@@ -134,7 +134,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           rotateY: 0,
           scale: 1,
           x: "0rem",
-          y: relative === 0 ? "0rem" : `${relative * 2.5}rem`,
+          y: relative === 0 ? "1.15rem" : `${relative * 2.5 + 1.15}rem`,
           z: 0,
           zIndex: relative === 0 ? 5 : 1,
         };
@@ -149,7 +149,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           rotateY: 0,
           scale: 1,
           x: "0rem",
-          y: "0rem",
+          y: "1.15rem",
           z: 0,
           zIndex: 5,
         };
@@ -164,7 +164,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           rotateY: 0,
           scale: 0.86,
           x: "0rem",
-          y: relative === -1 ? "-22rem" : "22rem",
+          y: relative === -1 ? "-20.85rem" : "23.15rem",
           z: -170,
           zIndex: 3,
         };
@@ -178,7 +178,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         rotateY: 0,
         scale: 0.72,
         x: "0rem",
-        y: relative < 0 ? "-32rem" : "32rem",
+        y: relative < 0 ? "-30.85rem" : "33.15rem",
         z: -320,
         zIndex: 1,
       };
