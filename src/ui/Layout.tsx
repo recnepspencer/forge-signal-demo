@@ -45,19 +45,19 @@ export function Layout({
 
       <footer className="site-footer">
         <div className="container site-footer-grid">
-          <div>
-            <strong>Forge Signal</strong>
-            <p>
-              A demo site for the Forge WASM runtime: signals, forms, routes,
-              resources, dialogs, and history behaving like one product system.
-            </p>
-          </div>
+          <span className="site-footer-copy">© 2026 Forge Signal</span>
           <div className="site-footer-links">
             <a href="#/" onClick={(event) => { event.preventDefault(); onNavigate("#/"); }}>
               Home
             </a>
             <a href="#/docs" onClick={(event) => { event.preventDefault(); onNavigate("#/docs"); }}>
               Docs
+            </a>
+            <a href="https://github.com/recnepspencer/forge-signal-demo" rel="noreferrer" target="_blank">
+              GitHub
+            </a>
+            <a href="https://www.npmjs.com/package/forge-signal-wasm" rel="noreferrer" target="_blank">
+              npm
             </a>
           </div>
         </div>

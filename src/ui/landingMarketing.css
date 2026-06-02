@@ -348,10 +348,12 @@
 @media (max-width: 720px) {
   .xai-carousel-home {
     align-items: start;
+    min-height: auto;
+    overflow: visible;
   }
 
   .xai-carousel-shell {
-    padding: 2rem 1.15rem;
+    padding: 2rem 1.15rem 3rem;
   }
 
   .xai-carousel-title h1 {
@@ -359,12 +361,16 @@
   }
 
   .xai-capability-carousel {
-    min-height: auto;
+    min-height: 39rem;
     width: 100%;
   }
 
+  .xai-carousel-window {
+    min-height: 39rem;
+  }
+
   .xai-carousel-slide {
-    min-height: 25rem;
+    min-height: 36rem;
   }
 
   .xai-carousel-arrow {
