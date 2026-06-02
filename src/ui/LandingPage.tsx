@@ -83,9 +83,11 @@ type CarouselPosition = {
   filter: string;
   opacity: number;
   pointerEvents: "auto" | "none";
+  rotateX?: number;
   rotateY: number;
   scale: number;
   x: string;
+  y?: string;
   z: number;
   zIndex: number;
 };
@@ -95,6 +97,8 @@ const MotionArticle = motion.article as unknown as React.ElementType;
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const [isMobileCarousel, setIsMobileCarousel] = React.useState(false);
+  const swipeStartRef = React.useRef<{ x: number; y: number } | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const active = capabilitySlides[activeIndex];
   const previousSlide = capabilitySlides[(activeIndex - 1 + capabilitySlides.length) % capabilitySlides.length];
@@ -104,6 +108,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
     setActiveIndex((nextIndex + capabilitySlides.length) % capabilitySlides.length);
   };
 
+  React.useEffect(() => {
+    const media = window.matchMedia("(max-width: 720px)");
+    const sync = () => setIsMobileCarousel(media.matches);
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
+
   const relativePosition = (index: number) => {
     const raw = index - activeIndex;
     if (raw > capabilitySlides.length / 2) return raw - capabilitySlides.length;
@@ -112,6 +124,66 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   };
 
   const cardPosition = (relative: number): CarouselPosition => {
+    if (isMobileCarousel) {
+      if (prefersReducedMotion) {
+        return {
+          filter: "blur(0px) saturate(1)",
+          opacity: relative === 0 ? 1 : 0,
+          pointerEvents: relative === 0 ? "auto" : "none",
+          rotateX: 0,
+          rotateY: 0,
+          scale: 1,
+          x: "0rem",
+          y: relative === 0 ? "0rem" : `${relative * 2.5}rem`,
+          z: 0,
+          zIndex: relative === 0 ? 5 : 1,
+        };
+      }
+
+      if (relative === 0) {
+        return {
+          filter: "blur(0px) saturate(1)",
+          opacity: 1,
+          pointerEvents: "auto",
+          rotateX: 0,
+          rotateY: 0,
+          scale: 1,
+          x: "0rem",
+          y: "0rem",
+          z: 0,
+          zIndex: 5,
+        };
+      }
+
+      if (relative === -1 || relative === 1) {
+        return {
+          filter: "blur(4px) saturate(0.78)",
+          opacity: 0.34,
+          pointerEvents: "none",
+          rotateX: relative === -1 ? -18 : 18,
+          rotateY: 0,
+          scale: 0.86,
+          x: "0rem",
+          y: relative === -1 ? "-18rem" : "18rem",
+          z: -170,
+          zIndex: 3,
+        };
+      }
+
+      return {
+        filter: "blur(10px) saturate(0.5)",
+        opacity: 0.05,
+        pointerEvents: "none",
+        rotateX: relative < 0 ? -24 : 24,
+        rotateY: 0,
+        scale: 0.72,
+        x: "0rem",
+        y: relative < 0 ? "-27rem" : "27rem",
+        z: -320,
+        zIndex: 1,
+      };
+    }
+
     if (prefersReducedMotion) {
       return {
         filter: "blur(0px) saturate(1)",
@@ -163,6 +235,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
     };
   };
 
+  const handleSwipeStart = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isMobileCarousel) return;
+    swipeStartRef.current = { x: event.clientX, y: event.clientY };
+  };
+
+  const handleSwipeEnd = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isMobileCarousel || !swipeStartRef.current) return;
+    const deltaX = event.clientX - swipeStartRef.current.x;
+    const deltaY = event.clientY - swipeStartRef.current.y;
+    swipeStartRef.current = null;
+    if (Math.abs(deltaY) < 58 || Math.abs(deltaY) < Math.abs(deltaX) * 1.15) return;
+    goTo(activeIndex + (deltaY < 0 ? 1 : -1));
+  };
+
   return (
     <main className="xai-landing xai-carousel-home">
       <section className="container xai-carousel-shell">
@@ -183,7 +269,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           <LandingInstallCommand />
         </div>
 
-        <div className="xai-carousel-stage">
+        <div
+          className="xai-carousel-stage"
+          onPointerCancel={() => { swipeStartRef.current = null; }}
+          onPointerDown={handleSwipeStart}
+          onPointerUp={handleSwipeEnd}
+        >
           <MotionDiv
             animate={{ backgroundColor: accentGlowColors[previousSlide.accent as keyof typeof accentGlowColors] }}
             className="xai-card-glow xai-card-glow-left"

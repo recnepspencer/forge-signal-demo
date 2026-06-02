@@ -349,7 +349,7 @@
   .xai-carousel-home {
     align-items: start;
     min-height: auto;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .xai-carousel-shell {
@@ -360,35 +360,33 @@
     font-size: 2.45rem;
   }
 
-  .xai-capability-carousel {
-    min-height: 39rem;
+  .xai-carousel-stage {
     width: 100%;
+    touch-action: pan-x;
+    user-select: none;
+  }
+
+  .xai-capability-carousel {
+    min-height: 37rem;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 13%, #000 87%, transparent 100%);
   }
 
   .xai-carousel-window {
-    min-height: 39rem;
+    min-height: 37rem;
+    perspective: 980px;
+    perspective-origin: center;
   }
 
   .xai-carousel-slide {
-    min-height: 36rem;
+    min-height: 34.5rem;
+    transform-origin: center;
   }
 
   .xai-carousel-arrow {
-    top: auto;
-    bottom: 1rem;
-    transform: none;
-  }
-
-  .xai-carousel-arrow-left {
-    left: 1rem;
-  }
-
-  .xai-carousel-arrow-right {
-    right: 1rem;
-  }
-
-  .xai-carousel-arrow:hover {
-    transform: scale(1.04);
+    display: none;
   }
 
   .xai-carousel-actions .xai-button,
