@@ -15,6 +15,15 @@
   background: rgba(0, 0, 0, 0.24);
 }
 
+.docs-mobile-menu-button {
+  display: none;
+}
+
+.docs-nav-tree {
+  display: grid;
+  gap: 0.16rem;
+}
+
 .docs-nav-folder {
   display: grid;
   gap: 0.16rem;
@@ -185,14 +194,88 @@
 @media (max-width: 860px) {
   .docs-page {
     display: grid;
+    min-height: auto;
   }
 
   .docs-sidebar {
-    position: relative;
-    top: 0;
+    position: sticky;
+    top: 56px;
+    z-index: 20;
     width: auto;
     max-height: none;
+    padding: 0.7rem 1rem;
+    overflow: visible;
     border-right: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(5, 6, 8, 0.98), rgba(5, 6, 8, 0.9)),
+      rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(18px);
+  }
+
+  .docs-mobile-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: 1px solid rgba(125, 199, 255, 0.18);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.045);
+    color: #f5f7fb;
+    cursor: pointer;
+    padding: 0.82rem 0.95rem;
+    text-align: left;
+  }
+
+  .docs-mobile-menu-button span:first-child {
+    display: grid;
+    gap: 0.16rem;
+    min-width: 0;
+  }
+
+  .docs-mobile-menu-button strong {
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .docs-mobile-menu-button small {
+    overflow: hidden;
+    color: rgba(223, 228, 236, 0.66);
+    font-size: 0.86rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .docs-mobile-menu-button span:last-child {
+    color: var(--accent-signals);
+    flex: 0 0 auto;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding-left: 1rem;
+    text-transform: uppercase;
+  }
+
+  .docs-nav-tree {
+    display: none;
+    max-height: min(68vh, 34rem);
+    margin-top: 0.7rem;
+    overflow: auto;
+    padding: 0.35rem 0 0.45rem;
+  }
+
+  .docs-sidebar.is-open .docs-nav-tree {
+    display: grid;
+  }
+
+  .docs-reading-pane {
+    max-height: none;
+    overflow: visible;
+    padding: 1.45rem 1rem 2.5rem;
+  }
+
+  .docs-article h1 {
+    font-size: 2rem;
   }
 }

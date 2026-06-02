@@ -107,12 +107,14 @@ function nodeContains(node: DocNavNode, activeSubpath: string): boolean {
 function DocsNavNodeView({
   node,
   onNavigate,
+  onSelect,
   openNodes,
   setOpenNodes,
   subpath,
 }: {
   node: DocNavNode;
   onNavigate: (path: string) => void;
+  onSelect?: () => void;
   openNodes: Record<string, boolean>;
   setOpenNodes: (updater: (state: Record<string, boolean>) => Record<string, boolean>) => void;
   subpath: string;
@@ -125,7 +127,9 @@ function DocsNavNodeView({
         href={`#/docs/${node.item?.subpath}`}
         onClick={(event) => {
           event.preventDefault();
-          if (node.item) onNavigate(`#/docs/${node.item.subpath}`);
+          if (!node.item) return;
+          onNavigate(`#/docs/${node.item.subpath}`);
+          onSelect?.();
         }}
         style={{ "--depth": node.depth } as any}
       >
@@ -143,7 +147,7 @@ function DocsNavNodeView({
       {open ? (
         <div className="docs-nav-items">
           {node.children.map((child) => (
-            <DocsNavNodeView key={child.key} node={child} onNavigate={onNavigate} openNodes={openNodes} setOpenNodes={setOpenNodes} subpath={subpath} />
+            <DocsNavNodeView key={child.key} node={child} onNavigate={onNavigate} onSelect={onSelect} openNodes={openNodes} setOpenNodes={setOpenNodes} subpath={subpath} />
           ))}
         </div>
       ) : null}
@@ -154,6 +158,7 @@ function DocsNavNodeView({
 export function DocsPage({ subpath, onNavigate }: DocsPageProps) {
   const article = useMemo(() => getDocArticle(subpath), [subpath]);
   const [openNodes, setOpenNodes] = useState<Record<string, boolean>>({});
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const openActive = (nodes: DocNavNode[], state: Record<string, boolean>) => {
@@ -169,12 +174,33 @@ export function DocsPage({ subpath, onNavigate }: DocsPageProps) {
     });
   }, [subpath]);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [subpath]);
+
   return (
     <div className="docs-page">
-      <aside className="docs-sidebar">
-        {docsNavigation.map((node) => (
-          <DocsNavNodeView key={node.key} node={node} onNavigate={onNavigate} openNodes={openNodes} setOpenNodes={setOpenNodes} subpath={subpath} />
-        ))}
+      <aside className={`docs-sidebar ${mobileMenuOpen ? "is-open" : ""}`}>
+        <button className="docs-mobile-menu-button" onClick={() => setMobileMenuOpen((open) => !open)} type="button">
+          <span>
+            <strong>Docs</strong>
+            <small>{article?.title ?? "Choose a page"}</small>
+          </span>
+          <span aria-hidden="true">{mobileMenuOpen ? "Close" : "Menu"}</span>
+        </button>
+        <nav className="docs-nav-tree" aria-label="Documentation">
+          {docsNavigation.map((node) => (
+            <DocsNavNodeView
+              key={node.key}
+              node={node}
+              onNavigate={onNavigate}
+              onSelect={() => setMobileMenuOpen(false)}
+              openNodes={openNodes}
+              setOpenNodes={setOpenNodes}
+              subpath={subpath}
+            />
+          ))}
+        </nav>
       </aside>
       <section className="docs-reading-pane">
         {article ? (
