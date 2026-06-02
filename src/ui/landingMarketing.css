@@ -378,7 +378,7 @@
     min-height: 40rem;
     perspective: 980px;
     perspective-origin: center;
-    padding-top: 0.35rem;
+    padding-top: 1.25rem;
   }
 
   .xai-carousel-slide {
