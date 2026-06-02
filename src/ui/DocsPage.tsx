@@ -140,9 +140,9 @@ function DocsNavNodeView({
 
   return (
     <section className="docs-nav-folder">
-      <button className="docs-nav-toggle" onClick={() => setOpenNodes((state) => ({ ...state, [node.key]: !open }))} style={{ "--depth": node.depth } as any} type="button">
+      <button aria-expanded={open} className="docs-nav-toggle" onClick={() => setOpenNodes((state) => ({ ...state, [node.key]: !open }))} style={{ "--depth": node.depth } as any} type="button">
         <span>{node.title}</span>
-        <span>{open ? "−" : "+"}</span>
+        <span>{open ? "-" : "+"}</span>
       </button>
       {open ? (
         <div className="docs-nav-items">

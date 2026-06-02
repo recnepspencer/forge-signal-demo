@@ -200,10 +200,10 @@
   .docs-sidebar {
     position: sticky;
     top: 56px;
-    z-index: 20;
+    z-index: 40;
     width: auto;
     max-height: none;
-    padding: 0.7rem 1rem;
+    padding: 0.85rem 1rem;
     overflow: visible;
     border-right: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -223,7 +223,8 @@
     background: rgba(255, 255, 255, 0.045);
     color: #f5f7fb;
     cursor: pointer;
-    padding: 0.82rem 0.95rem;
+    min-height: 3.75rem;
+    padding: 0.9rem 1rem;
     text-align: left;
   }
 
@@ -234,7 +235,7 @@
   }
 
   .docs-mobile-menu-button strong {
-    font-size: 0.76rem;
+    font-size: 0.8rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
@@ -242,7 +243,7 @@
   .docs-mobile-menu-button small {
     overflow: hidden;
     color: rgba(223, 228, 236, 0.66);
-    font-size: 0.86rem;
+    font-size: 0.98rem;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -250,7 +251,7 @@
   .docs-mobile-menu-button span:last-child {
     color: var(--accent-signals);
     flex: 0 0 auto;
-    font-size: 0.78rem;
+    font-size: 0.84rem;
     font-weight: 800;
     letter-spacing: 0.08em;
     padding-left: 1rem;
@@ -259,14 +260,75 @@
 
   .docs-nav-tree {
     display: none;
-    max-height: min(68vh, 34rem);
-    margin-top: 0.7rem;
+    position: fixed;
+    inset: 7.4rem 0 0;
+    z-index: 35;
+    max-height: none;
+    margin-top: 0;
     overflow: auto;
-    padding: 0.35rem 0 0.45rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(125, 199, 255, 0.16);
+    background:
+      radial-gradient(circle at 18% 0%, rgba(125, 199, 255, 0.16), transparent 34rem),
+      linear-gradient(180deg, rgba(3, 4, 6, 0.98), rgba(5, 6, 8, 0.96));
+    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.52);
   }
 
   .docs-sidebar.is-open .docs-nav-tree {
     display: grid;
+    align-content: start;
+    gap: 0.65rem;
+  }
+
+  .docs-nav-folder {
+    gap: 0.45rem;
+  }
+
+  .docs-nav-toggle {
+    align-items: center;
+    min-height: 3.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(245, 247, 251, 0.86);
+    font-size: 0.96rem;
+    letter-spacing: 0.05em;
+    padding: 0.85rem 1rem 0.85rem calc(1rem + var(--depth, 0) * 0.36rem);
+  }
+
+  .docs-nav-toggle span:last-child {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(125, 199, 255, 0.1);
+    color: #c8ecff;
+    font-size: 1.15rem;
+  }
+
+  .docs-nav-items {
+    gap: 0.42rem;
+  }
+
+  .docs-nav-items a {
+    display: flex;
+    align-items: center;
+    min-height: 3.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.065);
+    border-left: 2px solid transparent;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.028);
+    color: rgba(223, 228, 236, 0.78);
+    font-size: 1rem;
+    line-height: 1.25;
+    padding: 0.8rem 0.95rem 0.8rem calc(0.95rem + var(--depth, 0) * 0.38rem);
+  }
+
+  .docs-nav-items a.active {
+    background: rgba(125, 199, 255, 0.11);
+    border-left-color: var(--accent-signals);
+    color: #f5f7fb;
   }
 
   .docs-reading-pane {
