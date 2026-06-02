@@ -1,6 +1,8 @@
 .site-shell {
   min-height: 100vh;
   background: #050608;
+  display: flex;
+  flex-direction: column;
 }
 
 .site-main {
@@ -130,13 +132,15 @@
 .site-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: #050608;
+  flex: none;
+  position: static;
 }
 
 .site-footer-grid {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-  padding: 1.5rem 2rem 2.5rem;
+  padding: 1rem 2rem 1.15rem;
 }
 
 .site-footer strong {
@@ -146,8 +150,13 @@
 .site-footer p,
 .site-footer-links a {
   color: rgba(223, 228, 236, 0.62);
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.site-footer p {
+  max-width: 46rem;
+  margin: 0.28rem 0 0;
 }
 
 .site-footer-links {
@@ -180,7 +189,24 @@
   }
 
   .site-footer-grid {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.72rem;
+    padding-bottom: calc(0.72rem + env(safe-area-inset-bottom));
+  }
+
+  .site-footer p {
+    display: none;
+  }
+
+  .site-footer strong {
+    font-size: 0.88rem;
+  }
+
+  .site-footer-links {
+    margin-left: auto;
+    gap: 0.75rem;
   }
 }
 
