@@ -367,7 +367,7 @@
   }
 
   .xai-capability-carousel {
-    min-height: 37rem;
+    min-height: 40rem;
     width: 100%;
     overflow: hidden;
     border-radius: 18px;
@@ -375,14 +375,14 @@
   }
 
   .xai-carousel-window {
-    min-height: 37rem;
+    min-height: 40rem;
     perspective: 980px;
     perspective-origin: center;
     padding-top: 0.35rem;
   }
 
   .xai-carousel-slide {
-    min-height: 34.5rem;
+    min-height: 35rem;
     transform-origin: center;
   }
 

@@ -164,7 +164,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           rotateY: 0,
           scale: 0.86,
           x: "0rem",
-          y: relative === -1 ? "-18rem" : "18rem",
+          y: relative === -1 ? "-22rem" : "22rem",
           z: -170,
           zIndex: 3,
         };
@@ -178,7 +178,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         rotateY: 0,
         scale: 0.72,
         x: "0rem",
-        y: relative < 0 ? "-27rem" : "27rem",
+        y: relative < 0 ? "-32rem" : "32rem",
         z: -320,
         zIndex: 1,
       };
