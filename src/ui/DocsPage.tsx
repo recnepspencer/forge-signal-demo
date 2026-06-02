@@ -158,7 +158,6 @@ function DocsNavNodeView({
 export function DocsPage({ subpath, onNavigate }: DocsPageProps) {
   const article = useMemo(() => getDocArticle(subpath), [subpath]);
   const [openNodes, setOpenNodes] = useState<Record<string, boolean>>({});
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const openActive = (nodes: DocNavNode[], state: Record<string, boolean>) => {
@@ -174,27 +173,15 @@ export function DocsPage({ subpath, onNavigate }: DocsPageProps) {
     });
   }, [subpath]);
 
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [subpath]);
-
   return (
     <div className="docs-page">
-      <aside className={`docs-sidebar ${mobileMenuOpen ? "is-open" : ""}`}>
-        <button className="docs-mobile-menu-button" onClick={() => setMobileMenuOpen((open) => !open)} type="button">
-          <span>
-            <strong>Docs</strong>
-            <small>{article?.title ?? "Choose a page"}</small>
-          </span>
-          <span aria-hidden="true">{mobileMenuOpen ? "Close" : "Menu"}</span>
-        </button>
+      <aside className="docs-sidebar">
         <nav className="docs-nav-tree" aria-label="Documentation">
           {docsNavigation.map((node) => (
             <DocsNavNodeView
               key={node.key}
               node={node}
               onNavigate={onNavigate}
-              onSelect={() => setMobileMenuOpen(false)}
               openNodes={openNodes}
               setOpenNodes={setOpenNodes}
               subpath={subpath}
