@@ -371,13 +371,14 @@
     width: 100%;
     overflow: hidden;
     border-radius: 18px;
-    mask-image: linear-gradient(180deg, transparent 0%, #000 13%, #000 87%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 4%, #000 92%, transparent 100%);
   }
 
   .xai-carousel-window {
     min-height: 37rem;
     perspective: 980px;
     perspective-origin: center;
+    padding-top: 0.35rem;
   }
 
   .xai-carousel-slide {
